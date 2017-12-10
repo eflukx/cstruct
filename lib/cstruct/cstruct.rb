@@ -201,10 +201,13 @@ private
 public  
   attr_accessor:owner
   
-  def initialize  #:nodoc:
-    @data  = "\0"*self.class.size
+  def initialize bindata = nil  #:nodoc:
+    @data  = "\0" * self.class.size
     @data.encode!("BINARY") if RUBY_VERSION >= '1.9'
+
+    self << bindata if bindata
     @owner = []
+
     yield self if block_given?
   end
   
